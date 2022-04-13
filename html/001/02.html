@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5拖放接口，图片拖拽上传</title>
+  <style>
+    .box {
+      width: 50px;
+      height: 50px;
+      background-color: #ccc;
+    }
+
+    .container {
+      width: 300px;
+      height: 300px;
+      border: 1px solid #ccc;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box" draggable="true"></div>
+
+  <div class="container"></div>
+
+  <script>
+    const container = document.querySelector('.container');
+    const drag = document.querySelector('.box');
+    container.addEventListener('dragover', function(event) {
+      event.preventDefault();
+    })
+
+    container.addEventListener('drop', function(event) {
+      event.preventDefault();
+      // console.log(event.dataTransfer);
+      const arr = Array.prototype.slice.call(event.dataTransfer.items)
+
+      arr.forEach(item => {
+        console.log(item);
+      })
+    })
+
+    drag.addEventListener('dragstart', function(event) {
+      event.dataTransfer.setData('text/plain', 'http://www.baidu.com')
+    })
+  </script>
+</body>
+</html>

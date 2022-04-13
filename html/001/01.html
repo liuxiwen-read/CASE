@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML5拖放接口，图片拖拽上传</title>
+  <style>
+    .box {
+      width: 50px;
+      height: 50px;
+      background-color: #ccc;
+    }
+
+    .container {
+      width: 300px;
+      height: 300px;
+      border: 1px solid #ccc;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box" draggable="true"></div>
+
+  <div class="container"></div>
+
+  <script>
+    /**
+     *  拖放 API
+     * 
+     *  drop        在可放置区域放置元素时触发
+     * 
+     *  dragover    当可拖动元素放置到可放置区域时触发
+     * 
+     *  dragstart   当可拖动元素开始拖动时触发
+     * 
+     *  dragenter   拖动的元素进入到可放嚣区城时触发
+     * 
+     *  dragleave   拖动的元素离开到可放嚣区域时触发
+     * 
+     *  dragend     拖放过程结束
+     * 
+     *  都是全局事件
+     */ 
+
+    const container = document.querySelector('.container');
+    const drag = document.querySelector('.box');
+    container.addEventListener('dragover', function(event) {
+      event.preventDefault();
+    })
+
+    container.addEventListener('drop', function(event) {
+      const data = event.dataTransfer.getData('text/plain')
+      console.log(data);
+    })
+
+    drag.addEventListener('dragstart', function(event) {
+      event.dataTransfer.setData('text/plain', 'http://www.baidu.com')
+      var img = new Image()
+      img.src = '009.jpg'
+      event.dataTransfer.setDragImage(img, 10, 10)
+    })
+  </script>
+</body>
+</html>
